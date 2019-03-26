@@ -8,7 +8,7 @@ Spyder Editor
 Stock Market
 """
 #%%
-#from stock_market import *
+from stock_market import *
 
 import sys
 from PyQt4 import QtGui, QtCore
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     
     window.setGeometry(250,125,800,500)
     window.setWindowTitle("Stock Market Technical Analysis")
-    window.setWindowIcon(QtGui.QIcon("C:\Users\Travis Campos\Documents\PIC10C-Final\LogoFinal.png"))
+    window.setWindowIcon(QtGui.QIcon("Images\LogoFinal.png"))
     sys.exit(app.exec_())
         
 
