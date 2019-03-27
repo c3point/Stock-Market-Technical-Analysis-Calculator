@@ -18,6 +18,7 @@ aapl = Stock("MSFT")
 info = str(aapl.get_company())
 print type(aapl.get_company)
 
+
 print info
 
 lst = []
@@ -40,6 +41,10 @@ def test_plot():
     plt.show()
     
     return
+
+
+df = get_historical_data("AAPL", start, end, output_format='pandas')
+print df
 
 
 #%%
@@ -66,17 +71,12 @@ end = dt.datetime(now.year,now.month,now.day)
 def find_date(month_count):
     d = dt.datetime.strptime(str(now.year)+"-"+str(now.month)+"-"+str(now.day), "%Y-%m-%d")
     d2 = d - dateutil.relativedelta.relativedelta(months=month_count)
-    
     lst = []
     lst = re.split('-',str(d2))
-    
     new_lst = []
     new_lst.append(int(lst[0]))
     new_lst.append(int(lst[1]))
-    
     info = re.split("\s",lst[2])
-
-    
     new_lst.append(int(info[0]))
     return new_lst
 
@@ -96,7 +96,7 @@ ax1 = plt.subplot2grid((6,1), (0,0), rowspan = 5, colspan = 1)
 ax2 = plt.subplot2grid((6,1), (5,0), rowspan = 1, colspan = 1) 
 
 def plot():
-    
+    '''
     plt.rcParams["figure.figsize"] = (10,5)
     ax1.plot(global_df.index, global_df['Adj Close'],color = 'Green')
     ax1.plot(global_df.index, global_df['100ma'], color = 'Blue')
@@ -104,10 +104,10 @@ def plot():
     ax1.bar(global_df.index, global_df['Volume']/10000000)
     plt.savefig('new_chart.png')
     return
+    '''
+#plot()
 
-plot()
 
-'''
 
 
 def three_month_chart():
@@ -131,6 +131,8 @@ def three_month_chart():
     plt.savefig('three_m.png')
     
     plt.cla()
+    
+    
 
 def six_month_chart():
     global start
@@ -140,8 +142,8 @@ def six_month_chart():
     start = dt.datetime(date[0],date[1],date[2])
     
     df = web.DataReader('AAPL','yahoo',start,end)
-    df.to_csv('3month.csv')
-    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    df.to_csv('6month.csv')
+    df = pd.read_csv('6month.csv',parse_dates = True, index_col = 0)
     
     plt.rcParams["figure.figsize"] = (10,5)
     size = global_df.shape[0]
@@ -162,8 +164,8 @@ def nine_month_chart():
     start = dt.datetime(date[0],date[1],date[2])
     
     df = web.DataReader('AAPL','yahoo',start,end)
-    df.to_csv('3month.csv')
-    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    df.to_csv('9month.csv')
+    df = pd.read_csv('9month.csv',parse_dates = True, index_col = 0)
     
     plt.rcParams["figure.figsize"] = (10,5)
     size = global_df.shape[0]
@@ -184,8 +186,8 @@ def one_year_chart():
     start = dt.datetime(date[0],date[1],date[2])
     
     df = web.DataReader('AAPL','yahoo',start,end)
-    df.to_csv('3month.csv')
-    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    df.to_csv('1year.csv')
+    df = pd.read_csv('1year.csv',parse_dates = True, index_col = 0)
     
     plt.rcParams["figure.figsize"] = (10,5)
     size = global_df.shape[0]
@@ -206,8 +208,8 @@ def three_year_chart():
     start = dt.datetime(date[0],date[1],date[2])
     
     df = web.DataReader('AAPL','yahoo',start,end)
-    df.to_csv('3month.csv')
-    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    df.to_csv('3year.csv')
+    df = pd.read_csv('3year.csv',parse_dates = True, index_col = 0)
     
     plt.rcParams["figure.figsize"] = (10,5)
     size = global_df.shape[0]
@@ -228,8 +230,8 @@ def five_year_chart():
     start = dt.datetime(date[0],date[1],date[2])
     
     df = web.DataReader('AAPL','yahoo',start,end)
-    df.to_csv('3month.csv')
-    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    df.to_csv('5year.csv')
+    df = pd.read_csv('5year.csv',parse_dates = True, index_col = 0)
     
     plt.rcParams["figure.figsize"] = (10,5)
     size = global_df.shape[0]
@@ -254,7 +256,7 @@ def save_charts():
 
 save_charts()
 
-'''
+
 
 
 

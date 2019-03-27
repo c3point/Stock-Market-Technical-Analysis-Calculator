@@ -8,6 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from scraper import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -142,13 +143,25 @@ class Ui_MainWindow(object):
         item = QtGui.QTableWidgetItem()
         self.tableWidget_3.setItem(1, 1, item)
         item = QtGui.QTableWidgetItem()
+        
+ 
+ 
         self.tableWidget_3.setItem(2, 0, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_3.setItem(2, 1, item)
         item = QtGui.QTableWidgetItem()
+        
+
+        
+
         self.tableWidget_3.setItem(3, 0, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_3.setItem(3, 1, item)
+        item = QtGui.QTableWidgetItem()
+
+        
+        
+        
         self.tableWidget_3.horizontalHeader().setVisible(False)
         self.tableWidget_3.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget_3.horizontalHeader().setDefaultSectionSize(111)
@@ -206,13 +219,25 @@ class Ui_MainWindow(object):
         item = QtGui.QTableWidgetItem()
         self.tableWidget_4.setItem(1, 1, item)
         item = QtGui.QTableWidgetItem()
+        
+
+ 
         self.tableWidget_4.setItem(2, 0, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_4.setItem(2, 1, item)
         item = QtGui.QTableWidgetItem()
+        
+        
+
+        
+      
         self.tableWidget_4.setItem(3, 0, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_4.setItem(3, 1, item)
+        
+
+
+        
         self.tableWidget_4.horizontalHeader().setVisible(False)
         self.tableWidget_4.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget_4.horizontalHeader().setDefaultSectionSize(111)
@@ -265,6 +290,13 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "New York Stock Exchange:", None))
         __sortingEnabled = self.tableWidget_3.isSortingEnabled()
         self.tableWidget_3.setSortingEnabled(False)
+        
+        #new
+        data = data_list()
+        #new
+
+
+        
         item = self.tableWidget_3.item(0, 0)
         item.setText(_translate("MainWindow", "Company:", None))
         item = self.tableWidget_3.item(0, 1)
@@ -291,6 +323,74 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Verizon", None))
         item = self.tableWidget_3.item(3, 1)
         item.setText(_translate("MainWindow", "VZ", None))
+        
+        #start
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[0][0])
+        self.tableWidget_3.setItem(1, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[0][1])
+        self.tableWidget_3.setItem(1, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[0][2])
+        self.tableWidget_3.setItem(1, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[0][3])
+        self.tableWidget_3.setItem(1, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[0][4])
+        self.tableWidget_3.setItem(1, 6, item)
+        
+        
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[1][0])
+        self.tableWidget_3.setItem(2, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[1][1])
+        self.tableWidget_3.setItem(2, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[1][2])
+        self.tableWidget_3.setItem(2, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[1][3])
+        self.tableWidget_3.setItem(2, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[1][4])
+        self.tableWidget_3.setItem(2, 6, item)
+        
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[2][0])
+        self.tableWidget_3.setItem(3, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[2][1])
+        self.tableWidget_3.setItem(3, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[2][2])
+        self.tableWidget_3.setItem(3, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[2][3])
+        self.tableWidget_3.setItem(3, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[2][4])
+        self.tableWidget_3.setItem(3, 6, item)
+        #end
+        
+        
         self.tableWidget_3.setSortingEnabled(__sortingEnabled)
         self.label_15.setText(_translate("MainWindow", "Nasdaq Stock Exchange:", None))
         __sortingEnabled = self.tableWidget_4.isSortingEnabled()
@@ -321,13 +421,82 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Microsoft", None))
         item = self.tableWidget_4.item(3, 1)
         item.setText(_translate("MainWindow", "MSFT", None))
+        
+        #start
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[3][0])
+        self.tableWidget_4.setItem(1, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[3][1])
+        self.tableWidget_4.setItem(1, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[3][2])
+        self.tableWidget_4.setItem(1, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[3][3])
+        self.tableWidget_4.setItem(1, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[3][4])
+        self.tableWidget_4.setItem(1, 6, item)
+        
+        
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[4][0])
+        self.tableWidget_4.setItem(2, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[4][1])
+        self.tableWidget_4.setItem(2, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[4][2])
+        self.tableWidget_4.setItem(2, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[4][3])
+        self.tableWidget_4.setItem(2, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[4][4])
+        self.tableWidget_4.setItem(2, 6, item)
+        
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[5][0])
+        self.tableWidget_4.setItem(3, 2, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[5][1])
+        self.tableWidget_4.setItem(3, 3, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[5][2])
+        self.tableWidget_4.setItem(3, 4, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[5][3])
+        self.tableWidget_4.setItem(3, 5, item)
+        
+        item = QtGui.QTableWidgetItem()
+        item.setText(data[5][4])
+        self.tableWidget_4.setItem(3, 6, item)
+        #end
+
+        
         self.tableWidget_4.setSortingEnabled(__sortingEnabled)
         self.label_11.setText(_translate("MainWindow", "Stock Ticker Symbol:", None))
         self.pushButton_2.setText(_translate("MainWindow", "Submit", None))
         
-        
+        #new
         self.tableWidget_3.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tableWidget_4.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        #new
         
 
 
@@ -337,7 +506,6 @@ if __name__ == "__main__":
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    #ui.tableView.horizontalHeader().setSectionResizeMode(QtGui.QHeaderView.Stretch);
     MainWindow.show()
     sys.exit(app.exec_())
 
