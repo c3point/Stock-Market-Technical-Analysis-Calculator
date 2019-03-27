@@ -48,38 +48,214 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import pandas as pd
 import pandas_datareader.data as web
+import dateutil.relativedelta
+import re
+
+
+
 
 
 now = dt.datetime.now()
 
 style.use('ggplot')
 
-start = dt.datetime(2014,1,1)
+start = dt.datetime(2010,9,25)
 end = dt.datetime(now.year,now.month,now.day)
 
-df = web.DataReader('AAPL','yahoo',start,end)
-df.to_csv('stock.csv')
+
+def find_date(month_count):
+    d = dt.datetime.strptime(str(now.year)+"-"+str(now.month)+"-"+str(now.day), "%Y-%m-%d")
+    d2 = d - dateutil.relativedelta.relativedelta(months=month_count)
+    
+    lst = []
+    lst = re.split('-',str(d2))
+    
+    new_lst = []
+    new_lst.append(int(lst[0]))
+    new_lst.append(int(lst[1]))
+    
+    info = re.split("\s",lst[2])
+
+    
+    new_lst.append(int(info[0]))
+    return new_lst
+
+
+global_df = web.DataReader('AAPL','yahoo',start,end)
+global_df.to_csv('stock.csv')
 
 
 
 
-df = pd.read_csv('stock.csv',parse_dates = True, index_col = 0)
-df['100ma'] = df['Adj Close'].rolling(window = 100,min_periods = 0).mean()
-df['200ma'] = df['Adj Close'].rolling(window = 200,min_periods = 0).mean()
+global_df = pd.read_csv('stock.csv',parse_dates = True, index_col = 0)
+global_df['100ma'] = global_df['Adj Close'].rolling(window = 100,min_periods = 0).mean()
+global_df['200ma'] = global_df['Adj Close'].rolling(window = 200,min_periods = 0).mean()
 
 
 ax1 = plt.subplot2grid((6,1), (0,0), rowspan = 5, colspan = 1)
 ax2 = plt.subplot2grid((6,1), (5,0), rowspan = 1, colspan = 1) 
 
 def plot():
-    ax1.plot(df.index, df['Adj Close'],color = 'Green')
-    ax1.plot(df.index, df['100ma'], color = 'Blue')
-    ax1.plot(df.index, df['200ma'], color = 'Red')
-    ax2.bar(df.index, df['Volume'])
-    plt.savefig('chart.png',)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    ax1.plot(global_df.index, global_df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index, global_df['100ma'], color = 'Blue')
+    ax1.plot(global_df.index, global_df['200ma'], color = 'Red')
+    ax1.bar(global_df.index, global_df['Volume']/10000000)
+    plt.savefig('new_chart.png')
     return
 
 plot()
+
+'''
+
+
+def three_month_chart():
+    global start
+    global global_df
+    
+    date = find_date(3)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('three_m.png')
+    
+    plt.cla()
+
+def six_month_chart():
+    global start
+    global global_df
+    
+    date = find_date(6)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('six_m.png')
+    
+    plt.cla()
+
+def nine_month_chart():
+    global start
+    global global_df
+    
+    date = find_date(9)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('nine_m.png')
+    
+    plt.cla()
+
+def one_year_chart():
+    global start
+    global global_df
+    
+    date = find_date(12)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('one_y.png')
+    
+    plt.cla()
+
+def three_year_chart():
+    global start
+    global global_df
+    
+    date = find_date(36)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('three_y.png')
+    
+    plt.cla()
+    
+def five_year_chart():
+    global start
+    global global_df
+    
+    date = find_date(60)
+    start = dt.datetime(date[0],date[1],date[2])
+    
+    df = web.DataReader('AAPL','yahoo',start,end)
+    df.to_csv('3month.csv')
+    df = pd.read_csv('3month.csv',parse_dates = True, index_col = 0)
+    
+    plt.rcParams["figure.figsize"] = (10,5)
+    size = global_df.shape[0]
+    
+    ax1.plot(df.index, df['Adj Close'],color = 'Green')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['100ma'][range(size-df.shape[0],size)], color = 'Blue')
+    ax1.plot(global_df.index[range(size-df.shape[0],size)], global_df['200ma'][range(size-df.shape[0],size)], color = 'Red')
+    ax2.bar(global_df.index[range(size-df.shape[0],size)], global_df['Volume'][range(size-df.shape[0],size)])
+    plt.savefig('five_y.png')
+    
+    plt.cla()
+
+def save_charts():
+    three_month_chart()
+    six_month_chart()
+    nine_month_chart()
+    one_year_chart()
+    three_year_chart()
+    five_year_chart()
+    return
+    
+
+save_charts()
+
+'''
+
 
 
 
