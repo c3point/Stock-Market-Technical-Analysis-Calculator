@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Table_Resize.ui'
 #
-# Created: Tue Mar 26 13:22:27 2019
+# Created: Tue Mar 26 13:22:54 2019
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -113,7 +113,7 @@ class Ui_MainWindow(object):
         self.tableWidget_3.setSizePolicy(sizePolicy)
         self.tableWidget_3.setFrameShape(QtGui.QFrame.NoFrame)
         self.tableWidget_3.setFrameShadow(QtGui.QFrame.Sunken)
-        self.tableWidget_3.setSizeAdjustPolicy(QtGui.QAbstractScrollArea.AdjustIgnored)
+        #self.tableWidget_3.setSizeAdjustPolicy(QtGui.QAbstractScrollArea.AdjustIgnored)
         self.tableWidget_3.setAlternatingRowColors(True)
         self.tableWidget_3.setGridStyle(QtCore.Qt.SolidLine)
         self.tableWidget_3.setRowCount(4)
@@ -219,6 +219,8 @@ class Ui_MainWindow(object):
         self.tableWidget_4.horizontalHeader().setHighlightSections(True)
         self.tableWidget_4.verticalHeader().setVisible(False)
         self.tableWidget_4.verticalHeader().setDefaultSectionSize(35)
+        
+
         self.layoutWidget = QtGui.QWidget(self.splitter_3)
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.horizontalLayout_8 = QtGui.QHBoxLayout(self.layoutWidget)
@@ -322,6 +324,11 @@ class Ui_MainWindow(object):
         self.tableWidget_4.setSortingEnabled(__sortingEnabled)
         self.label_11.setText(_translate("MainWindow", "Stock Ticker Symbol:", None))
         self.pushButton_2.setText(_translate("MainWindow", "Submit", None))
+        
+        
+        self.tableWidget_3.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.tableWidget_4.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        
 
 
 if __name__ == "__main__":
@@ -330,6 +337,7 @@ if __name__ == "__main__":
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    #ui.tableView.horizontalHeader().setSectionResizeMode(QtGui.QHeaderView.Stretch);
     MainWindow.show()
     sys.exit(app.exec_())
 
