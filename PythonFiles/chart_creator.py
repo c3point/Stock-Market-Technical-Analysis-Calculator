@@ -18,8 +18,17 @@ import re
 import numpy as np
 import matplotlib.ticker as mticker
 
-
-
+def find_date(month_count):
+    d = dt.datetime.strptime(str(now.year)+"-"+str(now.month)+"-"+str(now.day), "%Y-%m-%d")
+    d2 = d - dateutil.relativedelta.relativedelta(months=month_count)
+    lst = []
+    lst = re.split('-',str(d2))
+    new_lst = []
+    new_lst.append(int(lst[0]))
+    new_lst.append(int(lst[1]))
+    info = re.split("\s",lst[2])
+    new_lst.append(int(info[0]))
+    return new_lst
 
 
 now = dt.datetime.now()
@@ -47,8 +56,8 @@ def find_date(month_count):
     new_lst.append(int(info[0]))
     return new_lst
 
-
-global_df = web.DataReader('AAPL','yahoo',start,end)
+stock = 'AAPL'
+global_df = web.DataReader(stock,'yahoo',start,end)
 global_df.to_csv('stock.csv')
 
 
@@ -137,7 +146,44 @@ def computeMACD(x, slow=26, fast=12):
     emafast = ExpMovingAverage(x, fast)
     return emaslow, emafast, emafast - emaslow
 
-def plot():
+def plot(start,end):
+    global global_df
+    
+    
+    global_df = web.DataReader(stock,'yahoo',start,end)
+    global_df.to_csv('stock.csv')
+    
+    global_df = pd.read_csv('stock.csv',parse_dates = True, index_col = 0)
+    global_df['50ma'] = global_df['Adj Close'].rolling(window = 50,min_periods = 0).mean()
+    global_df['100ma'] = global_df['Adj Close'].rolling(window = 100,min_periods = 0).mean()
+    global_df['200ma'] = global_df['Adj Close'].rolling(window = 200,min_periods = 0).mean()
+    
+    
+    
+    #ax1 = plt.subplot2grid((6,1), (0,0), rowspan = 5, colspan = 1)
+    #ax2 = plt.subplot2grid((6,1), (5,0), rowspan = 1, colspan = 1) 
+    
+    
+    
+    ax1 = plt.subplot2grid((6,4), (1,0), rowspan=4, colspan=4)
+    ax1.get_xaxis().set_ticks([])
+    plt.ylabel("Stock Price")
+    
+    ax1v = ax1.twinx()
+        
+    
+    
+    ax0 = plt.subplot2grid((6,4), (0,0), rowspan=1, colspan=4)
+    ax0.get_xaxis().set_ticks([])
+    ax0.set_yticks([30,70])
+    plt.ylabel("RSI")
+    
+    plt.title("Stock Market Technical Indicator Graph")
+    
+    ax2 = plt.subplot2grid((6,4), (5,0), rowspan=1, colspan=4)
+    ax2.set_yticks([-100,100])
+    
+    plt.ylabel("MACD")
     
     plt.rcParams["figure.figsize"] = (10,5)
     ax1.plot(global_df.index, global_df['Adj Close'],color = 'Green')
@@ -179,13 +225,72 @@ def plot():
     plt.gca().yaxis.set_major_locator(mticker.AutoLocator())
     
 
+
+
+def three_month_chart():
+    global end
+    date = find_date(3)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('three_m.png')
+    plt.cla()
     
-    plt.show()
-    plt.savefig('new_chart.png')
+    
 
+def six_month_chart():
+    global end
+    date = find_date(6)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('six_m.png')
+    plt.cla()
+
+def nine_month_chart():
+    global end
+    date = find_date(9)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('nine_m.png')
+    plt.cla()
+
+def one_year_chart():
+    global end
+    date = find_date(12)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('one_y.png')
+    
+    plt.cla()
+
+def three_year_chart():
+    global end
+    date = find_date(36)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('three_y.png')
+    
+    plt.cla()
+    
+def five_year_chart():
+    global end
+    date = find_date(60)
+    start = dt.datetime(date[0],date[1],date[2])
+    plot(start,end)
+    plt.savefig('five_y.png')
+    plt.cla()
+
+def save_charts():
+    three_month_chart()
+    six_month_chart()
+    nine_month_chart()
+    one_year_chart()
+    three_year_chart()
+    five_year_chart()
     return
+    
 
-plot()
+save_charts()
+
 
 
 #%%

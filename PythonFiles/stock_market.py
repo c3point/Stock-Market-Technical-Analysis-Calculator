@@ -9,23 +9,30 @@ Stock Market
 """
 #%%
 
+import datetime as dt
 from datetime import datetime
 from iexfinance.stocks import get_historical_data
-from iexfinance.stocks import Stock
+
 import re
 
-aapl = Stock("MSFT")
-info = str(aapl.get_company())
-print type(aapl.get_company)
+
+from iexfinance.stocks import Stock
+
+def get_share_price(stock):
+    price = Stock(stock).get_price()
+    string = "$" + price
+    return string
+
+def find_company_name(stock):
+    info = str(Stock(stock).get_company())
+    lst = []
+    lst = re.findall('companyName\': u\'([^\']+)',info)
+    return lst[0]
 
 
-print info
-
-lst = []
-lst = re.findall('companyName\': u\'([^\']+)',info)
-print lst
-
-
+now = dt.datetime.now()
+start = dt.datetime(2010,9,25)
+end = dt.datetime(now.year,now.month,now.day)
 
     
 def test_plot():
@@ -43,8 +50,11 @@ def test_plot():
     return
 
 
-df = get_historical_data("AAPL", start, end, output_format='pandas')
-print df
+#df = get_historical_data("AAPL", start, end, output_format='pandas')
+#print df
+
+
+
 
 
 #%%
@@ -57,7 +67,7 @@ import dateutil.relativedelta
 import re
 
 
-
+#from stock_market_technical_chart import *
 
 
 now = dt.datetime.now()
@@ -94,18 +104,6 @@ global_df['200ma'] = global_df['Adj Close'].rolling(window = 200,min_periods = 0
 
 ax1 = plt.subplot2grid((6,1), (0,0), rowspan = 5, colspan = 1)
 ax2 = plt.subplot2grid((6,1), (5,0), rowspan = 1, colspan = 1) 
-
-def plot():
-    '''
-    plt.rcParams["figure.figsize"] = (10,5)
-    ax1.plot(global_df.index, global_df['Adj Close'],color = 'Green')
-    ax1.plot(global_df.index, global_df['100ma'], color = 'Blue')
-    ax1.plot(global_df.index, global_df['200ma'], color = 'Red')
-    ax1.bar(global_df.index, global_df['Volume']/10000000)
-    plt.savefig('new_chart.png')
-    return
-    '''
-#plot()
 
 
 
