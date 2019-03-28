@@ -198,14 +198,44 @@ def plot(start,end,stock):
     plt.gca().yaxis.set_major_locator(mticker.AutoLocator())
     plt.gca().xaxis.set_major_locator(mticker.AutoLocator())
     
+    #check technicals
+    dma_200 = True
+    dma_100 = True
+    dma_50 = True
+    rsi_indicator = True
+    macd_indicator = True
+    vwap = True
+    
+    price = global_df['Adj Close'][-1] 
 
+    if price <  global_df['200ma'][-1]:
+        dma_200 = False
+    if price <  global_df['100ma'][-1]:
+        dma_100 = False
+    if price <  global_df['50ma'][-1]:
+        dma_50 = False
+    if ema9[-1] > macd[-1]:
+        macd_indicator = False
+    if rsi[-1] > 50:
+        rsi_indicator = False
+    if dma_100 == False and dma_200 == False and dma_50 == False:
+        vwap = False
+    
+    technicals = []
+    technicals.append(dma_50)
+    technicals.append(rsi_indicator)
+    technicals.append(dma_100)
+    technicals.append(macd_indicator)
+    technicals.append(dma_200)
+    technicals.append(vwap)
+    return technicals
 
 
 def three_month_chart(stock):
     global end
     date = find_date(3)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('three_month.png')
     plt.cla()
     
@@ -215,7 +245,7 @@ def six_month_chart(stock):
     global end
     date = find_date(6)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('six_month.png')
     plt.cla()
 
@@ -223,7 +253,7 @@ def nine_month_chart(stock):
     global end
     date = find_date(9)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('nine_month.png')
     plt.cla()
 
@@ -231,7 +261,7 @@ def one_year_chart(stock):
     global end
     date = find_date(12)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('one_year.png')
     
     plt.cla()
@@ -240,7 +270,7 @@ def three_year_chart(stock):
     global end
     date = find_date(36)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('three_year.png')
     plt.cla()
     
@@ -248,7 +278,7 @@ def five_year_chart(stock):
     global end
     date = find_date(60)
     start = dt.datetime(date[0],date[1],date[2])
-    plot(start,end,stock)
+    x = plot(start,end,stock)
     plt.savefig('five_year.png')
 
 
@@ -262,8 +292,14 @@ def save_charts(stock):
     three_year_chart(stock)
     five_year_chart(stock)
     
-    return
+def return_technicals(stock):
+    start = dt.datetime(2018,1,25)
+    end = dt.datetime(now.year,now.month,now.day)
+
+    technicals = plot(start,end,stock)
+    return technicals
     
+
 
 
 

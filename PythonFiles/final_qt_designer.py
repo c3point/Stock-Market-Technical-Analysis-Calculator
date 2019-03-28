@@ -605,6 +605,14 @@ class Ui_MainWindow(object):
         self.pushButton_11.clicked.connect(self.clickMethod5)
         self.pushButton_12.clicked.connect(self.clickMethod6)
         self.pushButton_13.clicked.connect(self.clickMethod7)        
+        
+        self.actionMain_Menu.triggered.connect(self.process)
+         
+    def process(self):
+        self.stackedWidget.setCurrentIndex(0)
+        
+        
+
 
     def retranslateUi(self, MainWindow):
         #start
@@ -834,7 +842,18 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionMain_Menu.setText(_translate("MainWindow", "Main Menu", None))
         self.actionInstructions.setText(_translate("MainWindow", "Instructions", None))
+        '''
+        exitAct = QtGui.QAction(QtGui.QIcon("..\Images\LogoFinal.png"), '&Exit', self)        
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.setStatusTip('Exit application')
+        exitAct.triggered.connect(qApp.quit)
         
+        self.statusBar()
+
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(exitAct)
+        '''
         #start
         self.tableWidget_3.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.tableWidget_4.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
@@ -847,9 +866,11 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(1)
         self.label_27.setText(get_company_name(self.lineEdit_2.text()))
         self.label_29.setText(get_share_price(self.lineEdit_2.text()))
-        
+        stock = self.lineEdit_2.text()
         pixmap = QtGui.QPixmap('one_year.png')
         self.label.setPixmap(pixmap)
+        
+        self.check_technicals(stock)
         
     def clickMethod2(self):
         pixmap = QtGui.QPixmap('three_month.png')
@@ -874,7 +895,79 @@ class Ui_MainWindow(object):
     def clickMethod7(self):
         pixmap = QtGui.QPixmap('five_year.png')
         self.label.setPixmap(pixmap)
+        
+    def check_technicals(self,stock):
+        technicals = return_technicals(stock)
+        
+        positive = QtGui.QPixmap("..\Images\Positive.png")
+        negative = QtGui.QPixmap("..\Images\Negative.png")
+        
+        if technicals[0]:
+            self.label_32.setPixmap(positive)
+        else:
+            self.label_32.setPixmap(negative)
+            
+        if technicals[1]:
+            self.label_33.setPixmap(positive)
+        else:
+            self.label_33.setPixmap(negative)
+            
+            
+        if technicals[2]:
+            self.label_36.setPixmap(positive)
+        else:
+            self.label_36.setPixmap(negative)
 
+        if technicals[3]:
+            self.label_37.setPixmap(positive)
+        else:
+            self.label_37.setPixmap(negative)
+
+
+
+        if technicals[4]:
+            self.label_40.setPixmap(positive)
+        else:
+            self.label_40.setPixmap(negative)        
+
+        if technicals[5]:
+            self.label_41.setPixmap(positive)
+        else:
+            self.label_41.setPixmap(negative)    
+        
+        
+        positive_counter = 0
+        
+        while True:
+            if technicals[0]:
+                positive_counter+=1
+            if technicals[1]:
+                positive_counter+=1
+            if technicals[2]:
+                positive_counter+=1
+            if technicals[3]:
+                positive_counter+=1
+            if technicals[4]:
+                positive_counter+=1
+            if technicals[5]:
+                positive_counter+=1
+            break
+        
+        while True:
+            if positive_counter == 6:
+                self.label_43.setText("Strong Buy") 
+            elif positive_counter == 4 or positive_counter == 5:
+                self.label_43.setText("Buy")  
+            elif positive_counter == 3:
+                self.label_43.setText("Hold")        
+            elif positive_counter == 2 or positive_counter == 1:
+                self.label_43.setText("Sell")       
+            else:
+                self.label_43.setText("Strong Sell")   
+            
+            break
+                
+        
 
 if __name__ == "__main__":
     import sys
