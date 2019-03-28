@@ -144,7 +144,7 @@ def plot():
     ax1.plot(global_df.index, global_df['50ma'], color = 'Purple', label = "50 DMA")
     ax1.plot(global_df.index, global_df['100ma'], color = 'Blue',label = "100 DMA")
     ax1.plot(global_df.index, global_df['200ma'], color = 'Red',label = "200 DMA")
-
+    ax1.set_xticks([])
     handles, labels = ax1.get_legend_handles_labels()
     
     del handles[0]
@@ -157,6 +157,8 @@ def plot():
     ax1v.grid(False)
     ax1v.set_ylim([0,1])
     ax1v.set_ylabel("Volume")
+    ax1v.set_yticks([])
+    ax1v.set_xticks([])
     #ax2.bar(global_df.index, global_df['Volume']/1000000)
     
     rsi = rsiFunc(global_df['Adj Close'])
@@ -176,10 +178,7 @@ def plot():
     ax2.fill_between(global_df.index,macd-ema9,alpha = 0.5,facecolor='green',edgecolor = 'blue')
     plt.gca().yaxis.set_major_locator(mticker.AutoLocator())
     
-    
-    
 
-    
     
     plt.show()
     plt.savefig('new_chart.png')
