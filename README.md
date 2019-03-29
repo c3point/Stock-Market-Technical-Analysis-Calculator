@@ -71,7 +71,7 @@ The Stock Market Technical Analysis Calculator uses the following Python Version
 * PyQt4
 
 ## __YouTube Video:__
-Watch the [YouTube Video](https://www.google.com/) for an explanation on how to download and use the Stock Market Technical Analysis Calculator.
+Watch the [YouTube Video](https://www.youtube.com/watch?v=XnHujncigck&t=17s) for an explanation on how to download and use the Stock Market Technical Analysis Calculator.
 
 ## __PDF Document:__
-Read the [PDF Document](https://www.google.com/) for an explanation on how Qt, PyQt, Qt Designer, and RAII Guidelines influenced the creation of the Stock Market Technical Analysis Calculator. 
+Read the [PDF Document](https://github.com/TravisCampos/PIC10C-FinalProject/blob/master/Stock%20Market%20-%20RAII%20Guidelines.pdf) for an explanation on how Qt, PyQt, Qt Designer, and RAII Guidelines influenced the creation of the Stock Market Technical Analysis Calculator. 
