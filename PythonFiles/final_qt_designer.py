@@ -971,8 +971,6 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
-    
-    
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
